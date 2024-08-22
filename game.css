@@ -1,0 +1,17 @@
+*{
+    list-style: none;
+    margin: 0rem;
+    padding: 3px;
+    box-sizing: border-box;
+    background: lightgreen;
+}
+
+.cell{
+    width: 75px;
+    height: 75px;
+    border: 2px solid;
+    box-shadow: 0 0 0 2px;
+    line-height: 75px;
+    font-size: 40px;
+    cursor: pointer;
+}
