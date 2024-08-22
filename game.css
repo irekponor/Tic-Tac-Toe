@@ -6,7 +6,29 @@
     background: lightgreen;
 }
 
+.cell{
+    width: 75px;
+    height: 75px;
+    border: 2px solid;
+    box-shadow: 0 0 0 2px;
+    line-height: 75px;
+    font-size: 40px;
+    cursor: pointer;
+}
 
+#gameContainer{
+    font-family: cursive;
+    text-align: center;
+    margin-top: 7rem;
+}
+
+#cellContainer{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    width: 200px;
+    margin: auto;
+    padding-top: 40px;
+}
 
 #restartBtn{
     width: 6rem;
