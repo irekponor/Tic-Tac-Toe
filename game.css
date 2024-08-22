@@ -16,11 +16,7 @@
     cursor: pointer;
 }
 
-#gameContainer{
-    font-family: cursive;
-    text-align: center;
-    margin-top: 7rem;
-}
+
 
 #cellContainer{
     display: grid;
