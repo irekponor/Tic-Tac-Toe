@@ -106,16 +106,74 @@ function changeGameMode() {
 
 function computerTurn() {
   setTimeout(() => {
-    let availableCells = [];
+    let bestMove = -1;
+    let bestScore = -Infinity;
+
+    // Evaluate possible moves
     for (let i = 0; i < options.length; i++) {
       if (options[i] == "") {
-        availableCells.push(i);
+        options[i] = "O";
+        let score = minimax(options, 0, false);
+        options[i] = "";
+
+        if (score > bestScore) {
+          bestScore = score;
+          bestMove = i;
+        }
       }
     }
-    const randomCell =
-      availableCells[Math.floor(Math.random() * availableCells.length)];
-    options[randomCell] = "O";
-    cells[randomCell].textContent = "O";
+
+    // Make the best move
+    options[bestMove] = "O";
+    cells[bestMove].textContent = "O";
     checkWinner();
   }, 700);
+}
+
+// Minimax function
+function minimax(options, depth, isMaximizing) {
+  let winner = checkWinner(options);
+  if (winner == "O") {
+    return 10 - depth;
+  } else if (winner == "X") {
+    return depth - 10;
+  } else if (!options.includes("")) {
+    return 0;
+  }
+
+  if (isMaximizing) {
+    let bestScore = -Infinity;
+    for (let i = 0; i < options.length; i++) {
+      if (options[i] == "") {
+        options[i] = "O";
+        let score = minimax(options, depth + 1, false);
+        options[i] = "";
+        bestScore = Math.max(score, bestScore);
+      }
+    }
+    return bestScore;
+  } else {
+    let bestScore = Infinity;
+    for (let i = 0; i < options.length; i++) {
+      if (options[i] == "") {
+        options[i] = "X";
+        let score = minimax(options, depth + 1, true);
+        options[i] = "";
+        bestScore = Math.min(score, bestScore);
+      }
+    }
+    return bestScore;
+  }
+}
+function checkWinner(options) {
+  for (let i = 0; i < winConditions.length; i++) {
+    const condition = winConditions[i];
+    const cellA = options[condition[0]];
+    const cellB = options[condition[1]];
+    const cellC = options[condition[2]];
+    if (cellA == cellB && cellB == cellC) {
+      return cellA;
+    }
+  }
+  return null;
 }
