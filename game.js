@@ -117,5 +117,5 @@ function computerTurn() {
     options[randomCell] = "O";
     cells[randomCell].textContent = "O";
     checkWinner();
-  }, 1000); // 1000ms = 1 second delay
+  }, 700);
 }
