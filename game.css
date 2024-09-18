@@ -3,7 +3,8 @@
     margin: 0rem;
     padding: 3px;
     box-sizing: border-box;
-    background: lightgreen;
+    background: #333333;
+    color: #cccccc;
 }
 
 .cell{
@@ -39,4 +40,13 @@
     background: black;
     color: white;
     border: 2px solid #000000;
+}
+
+/* for smaller screens */
+
+@media only screen and (max-width: 50rem){
+    #gameContainer{
+        padding-left: 0;
+        margin-left: 0;
+    }
 }
