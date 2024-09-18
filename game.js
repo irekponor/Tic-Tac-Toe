@@ -85,20 +85,37 @@ function checkWinner() {
       break;
     }
   }
+
   if (roundWon) {
     if (gameMode == "singlePlayer") {
       if (currentPlayer == "X") {
+        singlePlayerWins++;
         statusText.textContent = "You Win!";
       } else {
+        singlePlayerLosses++;
         statusText.textContent = "Computer Wins!";
       }
     } else {
-      statusText.textContent = `${currentPlayer} Wins!`;
+      if (currentPlayer == "X") {
+        multiPlayerXWins++;
+        statusText.textContent = `${currentPlayer} Wins!`;
+      } else {
+        multiPlayerOWins++;
+        statusText.textContent = `${currentPlayer} Wins!`;
+      }
     }
     running = false;
+    updateScoreboard();
   } else if (!options.includes("")) {
-    statusText.textContent = `Draw!`;
+    if (gameMode == "singlePlayer") {
+      singlePlayerDraws++;
+      statusText.textContent = `Draw!`;
+    } else {
+      multiPlayerDraws++;
+      statusText.textContent = `Draw!`;
+    }
     running = false;
+    updateScoreboard();
   } else {
     changePlayer();
   }
