@@ -35,6 +35,12 @@ h1{
     padding-top: 40px;
 }
 
+.buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #restartBtn{
     width: 6rem;
     height: 3rem;
