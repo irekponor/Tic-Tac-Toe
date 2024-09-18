@@ -70,6 +70,11 @@ h1{
     border-radius: 10px;
 }
 
+#modeBtn:hover{
+    background: #00bfff;
+    color: #000000;
+}
+
 /* for smaller screens */
 
 @media only screen and (max-width: 50rem){
