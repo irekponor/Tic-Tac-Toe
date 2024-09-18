@@ -18,6 +18,25 @@ let currentPlayer = "X";
 let running = false;
 let gameMode = "singlePlayer";
 
+let singlePlayerWins = 0;
+let singlePlayerLosses = 0;
+let singlePlayerDraws = 0;
+let multiPlayerXWins = 0;
+let multiPlayerOWins = 0;
+let multiPlayerDraws = 0;
+
+// Update scoreboard function
+function updateScoreboard() {
+  document.getElementById("single-player-wins").textContent = singlePlayerWins;
+  document.getElementById("single-player-losses").textContent =
+    singlePlayerLosses;
+  document.getElementById("single-player-draws").textContent =
+    singlePlayerDraws;
+  document.getElementById("multi-player-x-wins").textContent = multiPlayerXWins;
+  document.getElementById("multi-player-o-wins").textContent = multiPlayerOWins;
+  document.getElementById("multi-player-draws").textContent = multiPlayerDraws;
+}
+
 initializeGame();
 modeBtn.textContent = "Switch to Multiplayer";
 
