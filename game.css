@@ -3,8 +3,12 @@
     margin: 0rem;
     padding: 3px;
     box-sizing: border-box;
-    background: #333333;
-    color: #cccccc;
+    background: #032b44;
+    color: #ffffff;
+}
+
+h1{
+    text-align: center; 
 }
 
 .cell{
@@ -37,9 +41,14 @@
     font-size: 17px;
     margin-top: 30px;
     cursor: pointer;
-    background: black;
-    color: white;
-    border: 2px solid #000000;
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #032b44;
+}
+
+#restartBtn:hover{
+    background: #00bfff;
+    color: #000000;
 }
 
 /* for smaller screens */
