@@ -109,7 +109,6 @@ function computerTurn() {
     let bestMove = -1;
     let bestScore = -Infinity;
 
-    // Check for blocking opponent's winning lines
     for (let i = 0; i < winConditions.length; i++) {
       const condition = winConditions[i];
       const cellA = options[condition[0]];
@@ -128,12 +127,10 @@ function computerTurn() {
       }
     }
 
-    // Control center cell if no blocking opportunity
     if (bestMove == -1) {
       if (options[4] == "") {
         bestMove = 4;
       } else {
-        // Prioritize corner cells
         let cornerCells = [0, 2, 6, 8];
         for (let i = 0; i < cornerCells.length; i++) {
           if (options[cornerCells[i]] == "") {
@@ -144,7 +141,6 @@ function computerTurn() {
       }
     }
 
-    // Choose best available cell if no strategic move
     if (bestMove == -1) {
       for (let i = 0; i < options.length; i++) {
         if (options[i] == "") {
@@ -159,18 +155,15 @@ function computerTurn() {
       }
     }
 
-    // Make the best move
     options[bestMove] = "O";
     cells[bestMove].textContent = "O";
     checkWinner();
   }, 700);
 }
 
-// Evaluate board function
 function evaluateBoard(options) {
   let score = 0;
 
-  // Check computer's winning lines
   for (let i = 0; i < winConditions.length; i++) {
     const condition = winConditions[i];
     const cellA = options[condition[0]];
@@ -188,7 +181,6 @@ function evaluateBoard(options) {
     }
   }
 
-  // Check opponent's winning lines
   for (let i = 0; i < winConditions.length; i++) {
     const condition = winConditions[i];
     const cellA = options[condition[0]];
