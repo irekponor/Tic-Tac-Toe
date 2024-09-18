@@ -107,6 +107,7 @@ function changeGameMode() {
 function computerTurn() {
   setTimeout(() => {
     let bestMove = -1;
+    let bestScore = -Infinity;
 
     // Check for blocking opponent's winning lines
     for (let i = 0; i < winConditions.length; i++) {
@@ -132,15 +133,29 @@ function computerTurn() {
       if (options[4] == "") {
         bestMove = 4;
       } else {
-        // Choose random available cell
-        let availableCells = [];
-        for (let i = 0; i < options.length; i++) {
-          if (options[i] == "") {
-            availableCells.push(i);
+        // Prioritize corner cells
+        let cornerCells = [0, 2, 6, 8];
+        for (let i = 0; i < cornerCells.length; i++) {
+          if (options[cornerCells[i]] == "") {
+            bestMove = cornerCells[i];
+            break;
           }
         }
-        bestMove =
-          availableCells[Math.floor(Math.random() * availableCells.length)];
+      }
+    }
+
+    // Choose best available cell if no strategic move
+    if (bestMove == -1) {
+      for (let i = 0; i < options.length; i++) {
+        if (options[i] == "") {
+          options[i] = "O";
+          let score = evaluateBoard(options);
+          options[i] = "";
+          if (score > bestScore) {
+            bestScore = score;
+            bestMove = i;
+          }
+        }
       }
     }
 
@@ -149,4 +164,47 @@ function computerTurn() {
     cells[bestMove].textContent = "O";
     checkWinner();
   }, 700);
+}
+
+// Evaluate board function
+function evaluateBoard(options) {
+  let score = 0;
+
+  // Check computer's winning lines
+  for (let i = 0; i < winConditions.length; i++) {
+    const condition = winConditions[i];
+    const cellA = options[condition[0]];
+    const cellB = options[condition[1]];
+    const cellC = options[condition[2]];
+
+    if (cellA == "O" && cellB == "O" && cellC == "O") {
+      score += 100;
+    } else if (cellA == "O" && cellB == "O" && cellC == "") {
+      score += 10;
+    } else if (cellA == "O" && cellB == "" && cellC == "O") {
+      score += 10;
+    } else if (cellA == "" && cellB == "O" && cellC == "O") {
+      score += 10;
+    }
+  }
+
+  // Check opponent's winning lines
+  for (let i = 0; i < winConditions.length; i++) {
+    const condition = winConditions[i];
+    const cellA = options[condition[0]];
+    const cellB = options[condition[1]];
+    const cellC = options[condition[2]];
+
+    if (cellA == "X" && cellB == "X" && cellC == "X") {
+      score -= 100;
+    } else if (cellA == "X" && cellB == "X" && cellC == "") {
+      score -= 10;
+    } else if (cellA == "X" && cellB == "" && cellC == "X") {
+      score -= 10;
+    } else if (cellA == "" && cellB == "X" && cellC == "X") {
+      score -= 10;
+    }
+  }
+
+  return score;
 }
