@@ -107,19 +107,40 @@ function changeGameMode() {
 function computerTurn() {
   setTimeout(() => {
     let bestMove = -1;
-    let bestScore = -Infinity;
 
-    // Evaluate possible moves
-    for (let i = 0; i < options.length; i++) {
-      if (options[i] == "") {
-        options[i] = "O";
-        let score = minimax(options, 0, false);
-        options[i] = "";
+    // Check for blocking opponent's winning lines
+    for (let i = 0; i < winConditions.length; i++) {
+      const condition = winConditions[i];
+      const cellA = options[condition[0]];
+      const cellB = options[condition[1]];
+      const cellC = options[condition[2]];
 
-        if (score > bestScore) {
-          bestScore = score;
-          bestMove = i;
+      if (cellA == "X" && cellB == "X" && cellC == "") {
+        bestMove = condition[2];
+        break;
+      } else if (cellA == "X" && cellB == "" && cellC == "X") {
+        bestMove = condition[1];
+        break;
+      } else if (cellA == "" && cellB == "X" && cellC == "X") {
+        bestMove = condition[0];
+        break;
+      }
+    }
+
+    // Control center cell if no blocking opportunity
+    if (bestMove == -1) {
+      if (options[4] == "") {
+        bestMove = 4;
+      } else {
+        // Choose random available cell
+        let availableCells = [];
+        for (let i = 0; i < options.length; i++) {
+          if (options[i] == "") {
+            availableCells.push(i);
+          }
         }
+        bestMove =
+          availableCells[Math.floor(Math.random() * availableCells.length)];
       }
     }
 
@@ -128,52 +149,4 @@ function computerTurn() {
     cells[bestMove].textContent = "O";
     checkWinner();
   }, 700);
-}
-
-// Minimax function
-function minimax(options, depth, isMaximizing) {
-  let winner = checkWinner(options);
-  if (winner == "O") {
-    return 10 - depth;
-  } else if (winner == "X") {
-    return depth - 10;
-  } else if (!options.includes("")) {
-    return 0;
-  }
-
-  if (isMaximizing) {
-    let bestScore = -Infinity;
-    for (let i = 0; i < options.length; i++) {
-      if (options[i] == "") {
-        options[i] = "O";
-        let score = minimax(options, depth + 1, false);
-        options[i] = "";
-        bestScore = Math.max(score, bestScore);
-      }
-    }
-    return bestScore;
-  } else {
-    let bestScore = Infinity;
-    for (let i = 0; i < options.length; i++) {
-      if (options[i] == "") {
-        options[i] = "X";
-        let score = minimax(options, depth + 1, true);
-        options[i] = "";
-        bestScore = Math.min(score, bestScore);
-      }
-    }
-    return bestScore;
-  }
-}
-function checkWinner(options) {
-  for (let i = 0; i < winConditions.length; i++) {
-    const condition = winConditions[i];
-    const cellA = options[condition[0]];
-    const cellB = options[condition[1]];
-    const cellC = options[condition[2]];
-    if (cellA == cellB && cellB == cellC) {
-      return cellA;
-    }
-  }
-  return null;
 }
