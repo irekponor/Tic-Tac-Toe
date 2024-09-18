@@ -44,11 +44,24 @@ h1{
     background: #ffffff;
     color: #000000;
     border: 2px solid #032b44;
+    border-radius: 10px;
 }
 
 #restartBtn:hover{
     background: #00bfff;
     color: #000000;
+}
+
+#modeBtn{
+    width: 6rem;
+    height: 3rem;
+    font-size: 17px;
+    margin-top: 30px;
+    cursor: pointer;
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #032b44;
+    border-radius: 10px;
 }
 
 /* for smaller screens */
