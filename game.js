@@ -55,7 +55,8 @@ function cellClicked() {
   }
   updateCell(this, cellIndex);
   checkWinner();
-  if (gameMode == "singlePlayer") {
+
+  if (running && gameMode == "singlePlayer") {
     computerTurn();
   }
 }
